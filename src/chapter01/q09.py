@@ -1,19 +1,21 @@
-import re
-def cipher(sentence):
-    ans = []
-    for word in sentence:
-        if re.search(r'[a-z]', word):
-            ans.append(chr(219-ord(word)))
-        else:
-            ans.append(word)
+import random
 
-    return ''.join(ans)
+def typoglycemia(sentence):
+
+    sentence = sentence.split(' ')
+
+    if len(sentence) == 4:
+        return sentence
+
+    else:
+        middle = sentence[1:-1]
+        random.shuffle(middle)
+        return [sentence[0]] + middle + [sentence[-1]]
+
 
 def main():
-    ans1 = cipher('Oh, I have had such a curious dream!')
-    print('暗号化:', ans1)
-    ans2 = cipher(ans1)
-    print('復号化:', ans2)
+    ans = typoglycemia("I couldn’t believe that I could actually understand what I was reading : the phenomenal power of the human mind.")
+    print(ans)
 
 if __name__ == '__main__':
     main()
