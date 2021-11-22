@@ -1,1 +1,2 @@
-paste data/col[1-2].txt
+# Nには任意の自然数N（<=2780）を指定
+head -n N data/col1.txt data/col2.txt
