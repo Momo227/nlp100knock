@@ -1,0 +1,2 @@
+1. cut -f 1 data/popular-names.txt > data/col1.txt
+2. cut -f 2 data/popular-names.txt > data/col2.txt
