@@ -1,23 +1,18 @@
-#!/usr/bin/python
-# -*- Coding: utf-8 -*-
+import pandas as pd
 
-def re_value(a):
-    # # 文字列を逆に出力する
-    # re_a_list = list(reversed(a))
-    #
-    # # listにて表示
-    # print(re_a_list)
-    #
-    # # ''と空白を削除
-    # re_a = ''.join(list(reversed(a)))
-    #
-    # return re_a
-    return a[::-1]
+def load_data(file_path):
+    data = pd.read_csv(file_path, sep='\t')
+    return data
 
 def main():
-    value = re_value("stress")
-    print(value)
+    data = load_data("../../data/popular-names.txt")
+    print(len(data))
 
 
 if __name__ == '__main__':
     main()
+
+    # Unixコマンドなら↓
+    # wc data/popular-names.txt
+
+
