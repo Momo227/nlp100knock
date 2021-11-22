@@ -1,2 +1,2 @@
 # Nには任意の自然数N（<=2780）を指定
-head -n N data/col1.txt data/col2.txt
+tail -n N data/col1.txt data/col2.txt
