@@ -1,0 +1,3 @@
+N:任意の自然数
+split -lN file_path
+split -lN data/col1.txt
