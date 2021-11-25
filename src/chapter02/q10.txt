@@ -1,0 +1,1 @@
+wc data/popular-names.txt
