@@ -1,10 +1,13 @@
 import pandas as pd
+import glob
 
 def main():
-    data = pd.read_csv("../../data/popular-names.txt", delimiter='\t', names=['name', 'sex', 'data1', 'data2'])
+    name = pd.read_csv("../../data/col1.txt", names=['name'])
+    sex = pd.read_csv("../../data/col2.txt", names=['sex'])
 
-    data.to_csv('../../data/col1.txt', columns=['name'], header=None, index=False)
-    data.to_csv('../../data/col2.txt', columns=['sex'], header=None, index=False)
+    df = name.join([sex])
+
+    df.to_csv("../../data/marge_data", index = False, sep='\t', header=None)
 
 if __name__ == '__main__':
     main()
