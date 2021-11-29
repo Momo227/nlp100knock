@@ -13,17 +13,19 @@ def main():
 
     num = args[1]
 
-    print(num)
+    num = int(num)
 
     data = load_data("../../data/popular-names.txt")
 
-    for i in range(int(num)):
+    start = len(data) - num
+
+    for i in range(start, len(data)):
         print(data[i])
 
 if __name__ == '__main__':
     main()
 
-# python q14.py N (Nに任意の自然数)
+# python q15.py N (Nに任意の自然数)
 
 
 
