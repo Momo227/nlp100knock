@@ -1,3 +1,1 @@
-N:任意の自然数
-split -lN file_path
-split -lN data/col1.txt
+cut -f1 ../../data/popular-names.txt | sort | uniq -c | wc -l
