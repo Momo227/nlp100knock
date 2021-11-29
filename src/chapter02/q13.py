@@ -1,5 +1,5 @@
 import pandas as pd
-import glob
+
 
 def main():
     name = pd.read_csv("../../data/col1.txt", names=['name'])
@@ -7,10 +7,8 @@ def main():
 
     df = name.join([sex])
 
-    df.to_csv("../../data/marge_data", index = False, sep='\t', header=None)
+    df.to_csv("../../data/marge_data", index=False, sep='\t', header=None)
+
 
 if __name__ == '__main__':
     main()
-
-
-
