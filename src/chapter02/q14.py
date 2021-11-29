@@ -1,16 +1,29 @@
-import pandas as pd
-import glob
+import sys
+def load_data(file_path):
+    rows = []
+    with open(file_path) as f:
+        for row in f:
+            row = row.strip().replace("\t"," ")
+            rows.append(row)
+
+    return rows
 
 def main():
-    name = pd.read_csv("../../data/col1.txt", names=['name'])
-    sex = pd.read_csv("../../data/col2.txt", names=['sex'])
+    args = sys.argv
 
-    df = name.join([sex])
+    num = args[1]
 
-    df.to_csv("../../data/marge_data", index = False, sep='\t', header=None)
+    print(num)
+
+    data = load_data("../../data/popular-names.txt")
+
+    for i in range(int(num)):
+        print(data[i])
 
 if __name__ == '__main__':
     main()
+
+# python q14.py N (Nに任意の自然数)
 
 
 
