@@ -17,10 +17,18 @@ def main():
 
     data = load_data("../../data/popular-names.txt")
 
-    start = len(data) - num
+    zenhan = []
+    for i in range(num):
+        zenhan.append(data[i])
 
-    for i in range(start, len(data)):
-        print(data[i])
+    kouhan = []
+    for i in range(num, len(data)):
+        kouhan.append(data[i])
+
+    print("前半\n")
+    print(zenhan)
+    print("\n後半\n")
+    print(kouhan)
 
 if __name__ == '__main__':
     main()
