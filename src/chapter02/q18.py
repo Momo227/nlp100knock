@@ -1,12 +1,11 @@
 import pandas as pd
 
 def main():
-    data = pd.read_csv("../../data/popular-names.txt", delimiter='\t', names=['name', "data1", "data2", "data3"])
-    name = data["name"].to_list()
+    data = pd.read_csv("../../data/popular-names.txt", delimiter='\t', names=['name', "sex", "data", "year"])
 
-    name = set(name)
+    sorted_data = data.sort_values('data', ascending=False)
+    print(sorted_data)
 
-    print(len(name))
 
 
 if __name__ == '__main__':
