@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- Coding: utf-8 -*-
-
 def re_value(a):
     # # 文字列を逆に出力する
     # re_a_list = list(reversed(a))
