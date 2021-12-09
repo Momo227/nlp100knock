@@ -1,5 +1,5 @@
 import pandas as pd
-
+import re
 
 def main():
     data = pd.read_json('../../data/jawiki-country.json', lines=True)
@@ -11,8 +11,17 @@ def main():
     text = content[1].split("\n")
 
     for mini in text:
-        if "[Category:" in mini:
-            print(mini)
+        res = re.search("^====", mini)
+        if res != None:
+            print(mini + str(3))
+        else:
+            res = re.search("^===", mini)
+            if res != None:
+                print(mini+ str(2))
+            else:
+                res = re.search("^==", mini)
+                if res != None:
+                    print(mini+ str(1))
 
 
 
