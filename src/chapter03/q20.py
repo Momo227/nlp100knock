@@ -8,7 +8,6 @@ def main():
 
     print(bretain)
 
-    bretain.to_csv('../../data/bretain.csv', header=["title", "text"], index=False)
 
 if __name__ == '__main__':
     main()
