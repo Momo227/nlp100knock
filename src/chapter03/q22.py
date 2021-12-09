@@ -12,6 +12,7 @@ def main():
 
     for mini in text:
         if "[Category:" in mini:
+            mini = mini.replace("[[Category:", "").replace("]", "")
             print(mini)
 
 
