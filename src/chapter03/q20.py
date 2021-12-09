@@ -1,24 +1,14 @@
-import json
+import pandas as pd
+
 
 def main():
+    data = pd.read_json('../../data/jawiki-country.json', lines=True)
 
-    data = []
-    decoder = json.JSONDecoder()
-    with open('../../data/jawiki-country.json') as f:
-        line = f.readline()
-        while line:
-            data.append(decoder.raw_decode(line))
-            line = f.readline()
-            if '"title": "イギリス"' in line:
-                Britian = line
+    bretain = data[data['title'] == "イギリス"]
 
+    print(bretain)
 
-    print(Britian)
-
-    # イギリスのデータの書き込み
-    with open("../../data/Britian.json", "w") as f:
-        json.dump(Britian, f, indent=2)
-
+    bretain.to_csv('../../data/bretain.csv', header=["title", "text"], index=False)
 
 if __name__ == '__main__':
     main()
