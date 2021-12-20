@@ -1,0 +1,2 @@
+# Nには任意の自然数N（<=2780）を指定
+tail -n N data/col1.txt data/col2.txt
