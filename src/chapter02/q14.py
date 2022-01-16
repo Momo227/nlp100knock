@@ -23,7 +23,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-# python q14.py N (Nに任意の自然数)
+# python q64.py N (Nに任意の自然数)
 
 
 
