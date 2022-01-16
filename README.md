@@ -8,3 +8,7 @@
 
 2章後半：https://colab.research.google.com/drive/1GzpWh0ZEUerMHwAUs7q0sV6pWcVwhnRF?usp=sharing
 
+7章前半：https://colab.research.google.com/drive/1OyEGThPdur3jgc1_dBFopZpdC4yUM4Lj?usp=sharing
+
+7章後半：https://colab.research.google.com/drive/1GzpWh0ZEUerMHwAUs7q0sV6pWcVwhnRF?usp=sharing
+
