@@ -1,12 +1,11 @@
-import pandas as pd
+from gensim.models import KeyedVectors
 
-def load_data(file_path):
-    data = pd.read_csv(file_path, sep='\t')
-    return data
 
 def main():
-    data = load_data("../../data/popular-names.txt")
-    print(len(data))
+
+    model = KeyedVectors.load_word2vec_format('../../data/GoogleNews-vectors-negative300.bin.gz', binary=True)
+
+    print(model['United_States'])
 
 
 if __name__ == '__main__':

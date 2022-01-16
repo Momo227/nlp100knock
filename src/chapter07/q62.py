@@ -1,13 +1,11 @@
-import pandas as pd
+from gensim.models import KeyedVectors
+
 
 def main():
-    data = pd.read_csv("../../data/popular-names.txt", delimiter='\t', names=['name', 'sex', 'data1', 'data2'])
+    model = KeyedVectors.load_word2vec_format('../../data/GoogleNews-vectors-negative300.bin.gz', binary=True)
 
-    data.to_csv('../../data/col1.txt', columns=['name'], header=None, index=False)
-    data.to_csv('../../data/col2.txt', columns=['sex'], header=None, index=False)
+    print(model.most_similar('United_States', topn=10))
+
 
 if __name__ == '__main__':
     main()
-
-
-

@@ -1,31 +1,27 @@
-import sys
-def load_data(file_path):
-    rows = []
-    with open(file_path) as f:
-        for row in f:
-            row = row.strip().replace("\t"," ")
-            rows.append(row)
-
-    return rows
+import pandas as pd
+import numpy as np
 
 def main():
-    args = sys.argv
 
-    num = args[1]
+    data = pd.read_csv("../../data/questions-words.tsv", sep='\t')
+    word1 = data["単語4"]
+    word2 = data["類似語"]
 
-    num = int(num)
+    cnt1 = 0
+    for i in range(8870):
+        if word1[i] == word2[i]:
+            cnt1 += 1
 
-    data = load_data("../../data/popular-names.txt")
+    cnt2 = 0
+    lng = len(data)
+    for i in range(lng - 8870):
+        if word1[i+8870] == word2[i+8870]:
+            cnt2 += 1
 
-    start = len(data) - num
+    print(cnt1/8870)
+    print(cnt2/(lng-8870))
 
-    for i in range(start, len(data)):
-        print(data[i])
+
 
 if __name__ == '__main__':
     main()
-
-# python q15.py N (Nに任意の自然数)
-
-
-

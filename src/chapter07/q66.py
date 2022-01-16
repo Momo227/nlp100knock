@@ -1,13 +1,27 @@
+import pandas as pd
+from scipy.stats import spearmanr
 from gensim.models import KeyedVectors
-from sklearn.cluster import KMeans
-
+import csv
 
 def main():
     model = KeyedVectors.load_word2vec_format('../../data/GoogleNews-vectors-negative300.bin.gz', binary=True)
+    sim = []
+    with open("../../data/wordsim353/combined.csv") as f:
+        next(f)
+        data = f.read()
 
-    # k-meansクラスタリング
-    kmeans = KMeans(n_clusters=5)
-    kmeans.fit(countries_vec)
+        data = data.split("\n")
+        human = []
+        for i in range(len(data)-1):
+            row = [mini.strip() for mini in data[i].split(",")]
+            print(row)
+            human.append(row[2])
+            sim.append(model.similarity(row[0], row[1]))
+
+
+    correlation, pvalue = spearmanr(sim, human)
+
+    print(correlation)
 
 if __name__ == '__main__':
     main()

@@ -1,21 +1,10 @@
-import pandas as pd
-import csv
-
-def load_data(file_path):
-    rows = []
-    with open(file_path) as f:
-        for row in f:
-            row = row.strip().replace("\t"," ")
-            rows.append(row)
-
-    return rows
+from gensim.models import KeyedVectors
 
 
 def main():
-    data = load_data("../../data/popular-names.txt")
+    model = KeyedVectors.load_word2vec_format('../../data/GoogleNews-vectors-negative300.bin.gz', binary=True)
 
-    print(data)
-
+    print(model.similarity('United_States', 'U.S.'))
 
 
 if __name__ == '__main__':

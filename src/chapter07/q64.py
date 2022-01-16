@@ -1,29 +1,19 @@
-import sys
-def load_data(file_path):
-    rows = []
-    with open(file_path) as f:
-        for row in f:
-            row = row.strip().replace("\t"," ")
-            rows.append(row)
-
-    return rows
+from gensim.models import KeyedVectors
 
 def main():
-    args = sys.argv
+    model = KeyedVectors.load_word2vec_format('../../data/GoogleNews-vectors-negative300.bin.gz', binary=True)
 
-    num = args[1]
 
-    print(num)
-
-    data = load_data("../../data/popular-names.txt")
-
-    for i in range(int(num)):
-        print(data[i])
+    with open("../../data/questions-words.txt") as input_file, open("../../data/questions-words.tsv", "w") as out_file:
+        header = ["単語1" + "\t" + "単語2" + "\t" + "単語3" + "\t" + "単語4" + "\t" + "類似語" + "\t" + "類似度"]
+        out_file.write(header[0] + "\n")
+        for row in input_file:
+            if ": " in row:
+                continue
+            else:
+                row = row.strip().split(" ")
+                word, cos = model.most_similar(positive=[row[1], row[2]], negative=[row[0]], topn=1)[0]
+                out_file.write(str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + "\t" + str(row[3]) + "\t"+ str(word) + "\t" + str(cos) + "\n")
 
 if __name__ == '__main__':
     main()
-
-# python q14.py N (Nに任意の自然数)
-
-
-
