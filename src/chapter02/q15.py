@@ -25,7 +25,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-# python q15.py N (Nに任意の自然数)
+# python q65.py N (Nに任意の自然数)
 
 
 
