@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- Coding: utf-8 -*-
-
 def add_char(x):
 
     return x[::2]

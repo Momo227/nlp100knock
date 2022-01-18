@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- Coding: utf-8 -*-
-
 def word_bi_gram(x):
     c = x.replace(',', '').replace('.', '')
     c = c.split()

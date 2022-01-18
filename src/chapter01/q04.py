@@ -1,11 +1,8 @@
-#!/usr/bin/python
-# -*- Coding: utf-8 -*-
 from collections import defaultdict
 
 
 def add_char(x):
-    lis = []
-    dic = defaultdict(list)
+    dic = defaultdict(int)
     c = x.replace(',', '').replace('.', '')
     c = c.split()
     moji = [0, 4, 5, 6, 7, 8, 14, 15, 18]

@@ -1,0 +1,3 @@
+sed : sed -e "s/\t/ /g" data/popular-names.txt
+tr : cat data/popular-names.txt | tr "\t" " "
+expand : expand -t 1 data/popular-names.txt
