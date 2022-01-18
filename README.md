@@ -11,3 +11,7 @@
 3章前半：https://colab.research.google.com/drive/1bdbs6NbT1fg2n-A9mQG3w1UISXKYG6kH?usp=sharing
 
 3章後半：https://colab.research.google.com/drive/1s6VKsTUT-ksMsBiySnRPGSzvMvqsonHH?usp=sharing
+
+4章前半：https://colab.research.google.com/drive/1BtJTHRxn0_QYp1wyjVH8vBNl3KvtRbJW?usp=sharing
+
+4章後半：https
