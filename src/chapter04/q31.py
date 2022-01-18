@@ -1,4 +1,4 @@
-def main():
+def load_data():
     text = []
     datas = []
     with open("data/neko.txt.mecab") as input_file:
@@ -20,7 +20,19 @@ def main():
                 text.append(datas)
                 datas = []
 
-    print(text)
+    return text
+
+
+def main():
+    data = load_data("data/neko.txt.mecab")
+
+    ans = set()
+    for lis in data:
+        for part in lis:
+            if part['pos'] == '動詞':
+                ans.add(part['surface'])
+
+    print(ans)
 
 
 if __name__ == '__main__':

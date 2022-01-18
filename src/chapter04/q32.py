@@ -30,7 +30,7 @@ def main():
     for lis in data:
         for part in lis:
             if part['pos'] == '動詞':
-                ans.add(part['surface'])
+                ans.add(part['base'])
 
     print(ans)
 

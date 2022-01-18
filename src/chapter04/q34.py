@@ -28,10 +28,22 @@ def main():
 
     ans = set()
     for row in data:
-        for i in range(1, len(row) - 1):
-            if row[i - 1]['pos'] == '名詞' and row[i]['surface'] == 'の' and row[i + 1]['pos'] == '名詞':
-                ans.add(row[i - 1]['surface'] + row[i]['surface'] + row[i + 1]['surface'])
+        noun = ''
+        num = 0
+        for mini in row:
+            if mini['pos'] == '名詞':
+                noun = ''.join([noun, mini['surface']])
+                num += 1
+            elif num >= 2:
+                ans.add(noun)
+                noun = ''
+                num = 0
+            else:
+                noun = ''
+                num = 0
 
+        if num >= 2:
+            ans.add(noun)
 
     print(ans)
 

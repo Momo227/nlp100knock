@@ -1,7 +1,7 @@
-def load_data():
+def load_data(path):
     text = []
     datas = []
-    with open("data/neko.txt.mecab") as input_file:
+    with open(path) as input_file:
         for row in input_file:
 
             # 文末以外：形態素解析情報をリストに追加
@@ -27,10 +27,11 @@ def main():
     data = load_data("data/neko.txt.mecab")
 
     ans = set()
-    for lis in data:
-        for part in lis:
-            if part['pos'] == '動詞':
-                ans.add(part['base'])
+    for row in data:
+        for i in range(1, len(row) - 1):
+            if row[i - 1]['pos'] == '名詞' and row[i]['surface'] == 'の' and row[i + 1]['pos'] == '名詞':
+                ans.add(row[i - 1]['surface'] + row[i]['surface'] + row[i + 1]['surface'])
+
 
     print(ans)
 
