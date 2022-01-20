@@ -1,6 +1,6 @@
 from gensim.models import KeyedVectors
-from sklearn.cluster import KMeans
-import numpy as np
+from matplotlib import pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 def main():
     data = []
@@ -16,15 +16,11 @@ def main():
     for i in range(len(data)):
         d2v.append(model[data[i]])
 
+    plt.figure(figsize=(15, 5))
+    Z = linkage(d2v, method='ward')
+    dendrogram(Z, labels=countries)
+    plt.show()
 
-    # k-meansクラスタリング
-    kmeans = KMeans(5)
-    kmeans.fit(d2v)
-
-    for i in range(5):
-        cluster = np.where(kmeans.labels_ == i)[0]
-        print('cluster', i)
-        print(', '.join([countries[k] for k in cluster]))
 
 if __name__ == '__main__':
     main()

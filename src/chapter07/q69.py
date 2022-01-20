@@ -1,5 +1,6 @@
 from gensim.models import KeyedVectors
-from sklearn.cluster import KMeans
+from matplotlib import pyplot as plt
+import bhtsne
 import numpy as np
 
 def main():
@@ -16,15 +17,13 @@ def main():
     for i in range(len(data)):
         d2v.append(model[data[i]])
 
+    embedded = bhtsne.tsne(np.array(d2v).astype(np.float64), dimensions=2, rand_seed=123)
+    plt.figure(figsize=(10, 10))
+    plt.scatter(np.array(embedded).T[0], np.array(embedded).T[1])
+    for (x, y), name in zip(embedded, countries):
+        plt.annotate(name, (x, y))
+    plt.show()
 
-    # k-meansクラスタリング
-    kmeans = KMeans(5)
-    kmeans.fit(d2v)
-
-    for i in range(5):
-        cluster = np.where(kmeans.labels_ == i)[0]
-        print('cluster', i)
-        print(', '.join([countries[k] for k in cluster]))
 
 if __name__ == '__main__':
     main()

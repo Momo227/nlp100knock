@@ -1,7 +1,5 @@
-import pandas as pd
 from scipy.stats import spearmanr
 from gensim.models import KeyedVectors
-import csv
 
 def main():
     model = KeyedVectors.load_word2vec_format('../../data/GoogleNews-vectors-negative300.bin.gz', binary=True)
