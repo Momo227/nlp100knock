@@ -1,5 +1,5 @@
 import pandas as pd
-import re
+
 
 def main():
     data = pd.read_json('../../data/jawiki-country.json', lines=True)
@@ -10,12 +10,12 @@ def main():
 
     text = content[1].split("\n")
 
-    pattern = re.compile('File|ファイル:(.+?)\|')
+    for mini in text:
+        if "[Category:" in mini:
+            print(mini)
 
-    for row in text:
-        file = re.findall(pattern, row)
-        if file:
-            print (file[0])
+
+
 
 
 if __name__ == '__main__':
