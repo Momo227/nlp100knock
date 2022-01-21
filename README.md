@@ -14,4 +14,4 @@
 
 4章前半：https://colab.research.google.com/drive/1BtJTHRxn0_QYp1wyjVH8vBNl3KvtRbJW?usp=sharing
 
-4章後半：https
+4章後半：https://colab.research.google.com/drive/18-TinxJAToD88lTwLjITjoD486HryMIp?usp=sharing
