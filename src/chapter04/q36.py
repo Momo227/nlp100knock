@@ -1,5 +1,7 @@
 from collections import defaultdict
 import re
+import matplotlib.pyplot as plt
+import japanize_matplotlib
 
 
 def make_dict(data):
@@ -38,11 +40,17 @@ def main():
         for part in lis:
             k, v = part
             if k == 'surface':
-                ans[v] += 1
+                word = v
+            if k == 'pos' and v != "記号":
+                ans[word] += 1
 
     ans = sorted(ans.items(), key=lambda x:x[1], reverse=True)
 
-    print(ans)
+    keys = [mini[0] for mini in ans[0:10]]
+    values = [mini[1] for mini in ans[0:10]]
+    plt.figure(figsize=(8, 4))
+    plt.bar(keys, values)
+    plt.show()
 
 
 if __name__ == '__main__':
