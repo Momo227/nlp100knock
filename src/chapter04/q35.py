@@ -33,26 +33,18 @@ def main():
             if line != "pas":
                 datas.append(make_dict(row))
 
-    ans = set()
-    cnt = 0
-    final = 0
-    mini = []
+    ans = defaultdict(int)
     for lis in datas:
         for part in lis:
             k, v = part
             if k == 'surface':
-                sub = v
-            if k == 'pos':
-                if v == '名詞':
-                    mini.append(sub)
-                    cnt += 1
-                else:
-                    ans.add(''.join(mini))
-                    final = max(final, cnt)
-                    cnt = 0
-                    mini = []
+                word = v
+            if k == 'pos' and v != "記号":
+                ans[word] += 1
 
-    print(final)
+
+    ans = sorted(ans.items(), key=lambda x:x[1], reverse=True)
+
     print(ans)
 
 

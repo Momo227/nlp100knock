@@ -44,12 +44,12 @@ def main():
             if k == 'pos' and v != "記号":
                 ans[word] += 1
 
-    ans = sorted(ans.items(), key=lambda x:x[1], reverse=True)
+    ans = ans.values()
 
-    keys = [mini[0] for mini in ans[0:10]]
-    values = [mini[1] for mini in ans[0:10]]
     plt.figure(figsize=(8, 4))
-    plt.bar(keys, values)
+    plt.hist(ans, bins=100)
+    plt.xlabel('出現頻度')
+    plt.ylabel('単語の種類数')
     plt.show()
 
 
