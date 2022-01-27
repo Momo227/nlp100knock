@@ -1,44 +1,51 @@
 import pandas as pd
 import re
-from sklearn.feature_extraction.text import CountVectorizer
+import string
+from sklearn.feature_extraction.text import TfidfVectorizer
 
-def normalize_number(text):
-    replace_text = re.sub(r'\d', '0', text)
-    return replace_text
 
 def preprocessing(text):
-  # 文字数を変えずに数字を０に置き換える
-  text = normalize_number(text)
-  return text
+    table = str.maketrans(string.punctuation, ' ' * len(string.punctuation))
+    text = text.translate(table)  # 記号をスペースに置換
+    text = text.lower()  # 小文字化
+    text = re.sub('[0-9]+', '0', text)  # 数字列を0に置換
+
+    return text
 
 
 def main():
-
     train = pd.read_csv("../../data/NewsAggregatorDataset/train.txt", sep="\t")
     valid = pd.read_csv("../../data/NewsAggregatorDataset/valid.txt", sep="\t")
     test = pd.read_csv("../../data/NewsAggregatorDataset/test.txt", sep="\t")
 
-    # データの前処理
-    train["title"] = train["title"].map(lambda x: preprocessing(x))
-    valid["title"] = valid["title"].map(lambda x: preprocessing(x))
-    test["title"] = test["title"].map(lambda x: preprocessing(x))
+    df = pd.concat([train, valid, test], axis=0)
+    df.reset_index(drop=True, inplace=True)  # indexを振りなおす
 
-    # CountVectorizerによるBoW形式の特徴抽出
-    cv = CountVectorizer()
-    train_title = cv.fit_transform(train["title"]).toarray()
-    valid_title = cv.fit_transform(valid["title"]).toarray()
-    test_title = cv.fit_transform(test["title"]).toarray()
+    # 前処理の実施
+    df['title'] = df['title'].map(lambda x: preprocessing(x))
 
-    # print(test_title)
+    train_valid = df[:len(train) + len(valid)]
+    test = df[len(train) + len(valid):]
 
-    # データフレームに変換
-    train = pd.DataFrame(list(zip(train_title, train["category"])), columns=['title', 'category'])
-    valid = pd.DataFrame(list(zip(valid_title, valid["category"])), columns=['title', 'category'])
-    test = pd.DataFrame(list(zip(test_title, test["category"])), columns=['title', 'category'])
+    # TfidfVectorizer
+    vec_BoW = TfidfVectorizer(min_df=10, ngram_range=(1, 2))
 
-    train.to_csv('../../data/NewsAggregatorDataset/train.feature.txt', sep='\t', index=False)
-    valid.to_csv('../../data/NewsAggregatorDataset/valid.feature.txt', sep='\t', index=False)
-    test.to_csv('../../data/NewsAggregatorDataset/test.feature.txt', sep='\t', index=False)
+    # ベクトル化
+    X_train_valid = vec_BoW.fit_transform(train_valid['title'])
+    X_test = vec_BoW.transform(test['title'])
+
+    # ベクトルをデータフレームに変換
+    X_train_valid = pd.DataFrame(X_train_valid.toarray(), columns=vec_BoW.get_feature_names())
+    X_test = pd.DataFrame(X_test.toarray(), columns=vec_BoW.get_feature_names())
+
+    # データの分割
+    X_train = X_train_valid[:len(train)]
+    X_valid = X_train_valid[len(train):]
+
+    # データの保存
+    X_train.to_csv('../../data/NewsAggregatorDataset/train.feature.txt', sep='\t', index=False)
+    X_valid.to_csv('../../data/NewsAggregatorDataset/valid.feature.txt', sep='\t', index=False)
+    X_test.to_csv('../../data/NewsAggregatorDataset/test.feature.txt', sep='\t', index=False)
 
 
 if __name__ == '__main__':
