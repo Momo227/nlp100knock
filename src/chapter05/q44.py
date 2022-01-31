@@ -1,3 +1,10 @@
+# pythonでDOTを使用する
+import pydot
+# Jupyter Notebookで画像を表示する
+from IPython.display import Image,display_png
+# グラフ理論でいうところのグラフを描く
+from graphviz import Digraph
+
 class Morph:
     def __init__(self, morph):
         (surface, attr) = morph.split("\t")
@@ -52,16 +59,23 @@ def main():
 
     # 追加
     sentence = sentences[2]
-    for chunk in sentence.chunks:
+    edges = []
+    for id, chunk in enumerate(sentence.chunks):
         if int(chunk.dst) != -1:
-            kakarimoto = ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs])
-            kakarimoto_youso = [morph.pos for morph in chunk.morphs]
+            kakarimoto = ''.join(
+                [morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs] + ['(' + str(id) + ')'])
             kakarisaki = ''.join(
-                [morph.surface if morph.pos != '記号' else '' for morph in sentence.chunks[int(chunk.dst)].morphs])
-            kakarisaki_youso = [morph.pos for morph in sentence.chunks[int(chunk.dst)].morphs]
+                [morph.surface if morph.pos != '記号' else '' for morph in sentence.chunks[int(chunk.dst)].morphs] + [
+                    '(' + str(chunk.dst) + ')'])
+            edges.append([kakarimoto, kakarisaki])
 
-            if '名詞' in kakarimoto_youso and '動詞' in kakarisaki_youso:
-                print(kakarimoto, kakarisaki, sep='\t')
+    # ノードとエッジを追加
+    n = pydot.Node('node')
+    # directed=True: 矢印あり
+    g = pydot.graph_from_edges(edges, directed=True)
+    g.add_node(n)
+    g.write_png('./ans44.png')
+    display_png(Image('./ans44.png'))
 
 if __name__ == '__main__':
     main()

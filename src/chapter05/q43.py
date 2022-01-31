@@ -55,10 +55,13 @@ def main():
     for chunk in sentence.chunks:
         if int(chunk.dst) != -1:
             kakarimoto = ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs])
+            kakarimoto_youso = [morph.pos for morph in chunk.morphs]
             kakarisaki = ''.join(
                 [morph.surface if morph.pos != '記号' else '' for morph in sentence.chunks[int(chunk.dst)].morphs])
-            print(kakarimoto, kakarisaki, sep='\t')
+            kakarisaki_youso = [morph.pos for morph in sentence.chunks[int(chunk.dst)].morphs]
 
+            if '名詞' in kakarimoto_youso and '動詞' in kakarisaki_youso:
+                print(kakarimoto, kakarisaki, sep='\t')
 
 if __name__ == '__main__':
     main()
