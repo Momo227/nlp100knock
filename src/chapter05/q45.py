@@ -57,25 +57,25 @@ def main():
                 chunks = []
                 dst = None
 
-    # 追加
-    sentence = sentences[2]
-    edges = []
-    for id, chunk in enumerate(sentence.chunks):
-        if int(chunk.dst) != -1:
-            kakarimoto = ''.join(
-                [morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs] + ['(' + str(id) + ')'])
-            kakarisaki = ''.join(
-                [morph.surface if morph.pos != '記号' else '' for morph in sentence.chunks[int(chunk.dst)].morphs] + [
-                    '(' + str(chunk.dst) + ')'])
-            edges.append([kakarimoto, kakarisaki])
 
-    # ノードとエッジを追加
-    n = pydot.Node('node')
-    # directed=True: 矢印あり
-    g = pydot.graph_from_edges(edges, directed=True)
-    g.add_node(n)
-    g.write_png('./ans44.png')
-    display_png(Image('./ans44.png'))
+    # 追加
+    with open('../../data/ai.ja/ans45.txt', 'w') as f:
+        for sentence in sentences:
+            for chunk in sentence.chunks:
+                for morph in chunk.morphs:
+                    if morph.pos == '動詞':
+                        cases = []
+                        # 見つけた動詞の係り元chunkから助詞を探す
+                        for src in chunk.srcs:
+                            cases = cases + [morph.surface for morph in sentence.chunks[src].morphs if
+                                             morph.pos == '助詞']
+
+                        # 助詞が見つかった場合は重複除去後辞書順にソートして出力
+                        if len(cases) > 0:
+                            cases = sorted(list(set(cases)))
+                            line = '{}\t{}'.format(morph.base, ' '.join(cases))
+                            print(line, file=f)
+                        break
 
 if __name__ == '__main__':
     main()
