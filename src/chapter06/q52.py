@@ -8,8 +8,8 @@ def main():
 
     train_test = train_test['category'].map({'e': 0, 'b': 1, 'm': 2, 't': 3})
 
-    lg = LogisticRegression(random_state=2, max_iter=10000)
-    lg.fit(train, train_test)
+    clf = LogisticRegression(random_state=2, max_iter=10000)
+    clf.fit(train, train_test)
 
 
 if __name__ == '__main__':
