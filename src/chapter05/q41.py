@@ -1,42 +1,58 @@
+# 係り受けの設定
 class Morph:
-    def __init__(self, surface, base, pos, pos1):
+    def __init__(self, morph):
+        (surface, attr) = morph.split("\t")
+        attr = attr.split(",")
         self.surface = surface
-        self.base = base
-        self.pos = pos
-        self.pos1 = pos1
+        self.base = attr[6]
+        self.pos = attr[0]
+        self.pos1 = attr[1]
 
-    def end_of_sentence(self):
-        if self.pos1 == '句点':
-            return 1
-        else:
-            return 0
 
-    # 文字列表現を定義するために用いる特殊メソッド
-    def __str__(self):
-        return 'surface: {}, base: {}, pos: {}, pos1: {}'\
-            .format(self.surface, self.base, self.pos, self.pos1)
+class Chunk():
+    def __init__(self, morphs, dst):
+        self.morphs = morphs
+        # 自分から出る矢印は1本
+        self.dst = dst
+        self.srcs = []
+
+
+# かかり先から逆向きに自分を設定している
+class Sentence():
+    def __init__(self, chunks):
+        self.chunks = chunks
+        for i, chunk in enumerate(self.chunks):
+            # 係り受け先がある場合 : かかり元が自分であると示す
+            if chunk.dst not in [None, -1]:
+                self.chunks[chunk.dst].srcs.append(i)
 
 
 def main():
     sentences = []
-    sentence = []
-    with open('../../data/ai.ja/ai.ja.txt.paresd') as f:
-        for line in f:
-            lis = line.split()
-            if lis[0] != '*' and lis[0] != 'EOS':
-                lis[1] = lis[1].replace('*', '')
-                lis2 = lis[0].split(',') + lis[1].split(',')
-                morph = Morph(surface=lis2[0], base=lis2[7], pos=lis2[1], pos1=lis2[2])
+    chunks = []
+    morphs = []
+    with open("../../data/ai.ja/ai.ja.txt.paresd") as input_file:
+        for line in input_file:
+            # 係り受け関係を示すもの
+            if line[0] == "*":
+                if len(morphs) > 0:
+                    chunks.append(Chunk(morphs, dst))
+                    morphs = []
+                # 係り先の単語のID
+                dst = int(line.split(" ")[2].rstrip("D"))
+            # 文末以外：形態素リスト追加
+            elif line != "EOS\n":
+                morphs.append(Morph(line))
+            # 文末
+            else:
+                chunks.append(Chunk(morphs, dst))
+                sentences.append(Sentence(chunks))
+                morphs = []
+                chunks = []
+                dst = None
 
-                sentence.append(morph)
-
-                # 句点で区切る
-                if morph.end_of_sentence():
-                    sentences.append(sentence)
-                    sentence = []
-
-    for morph in sentences[2]:
-        print(morph)
+    for chunk in sentences[2].chunks:
+        print([morph.surface for morph in chunk.morphs], chunk.dst, chunk.srcs)
 
 
 if __name__ == '__main__':

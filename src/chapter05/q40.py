@@ -1,20 +1,11 @@
 class Morph:
-    def __init__(self, surface, base, pos, pos1):
+    def __init__(self, morph):
+        (surface, attr) = morph.split("\t")
+        attr = attr.split(",")
         self.surface = surface
-        self.base = base
-        self.pos = pos
-        self.pos1 = pos1
-
-    def end_of_sentence(self):
-        if self.pos1 == '句点':
-            return 1
-        else:
-            return 0
-
-    # 文字列表現を定義するために用いる特殊メソッド
-    def __str__(self):
-        return 'surface: {}, base: {}, pos: {}, pos1: {}'\
-            .format(self.surface, self.base, self.pos, self.pos1)
+        self.base = attr[6]
+        self.pos = attr[0]
+        self.pos1 = attr[1]
 
 
 def main():
@@ -22,21 +13,21 @@ def main():
     sentence = []
     with open('../../data/ai.ja/ai.ja.txt.paresd') as f:
         for line in f:
-            lis = line.split()
-            if lis[0] != '*' and lis[0] != 'EOS':
-                lis[1] = lis[1].replace('*', '')
-                lis2 = lis[0].split(',') + lis[1].split(',')
-                morph = Morph(surface=lis2[0], base=lis2[7], pos=lis2[1], pos1=lis2[2])
+           # 係り受け関係を示すものを飛ばす
+            if line[0] == "*":
+                continue
+            # 本文
+            elif line != "EOS\n":
+                sentence.append(Morph(line))
+            # 文末
+            else:
+                sentences.append(sentence)
+                sentence = []
 
-                sentence.append(morph)
-
-                # 句点で区切る
-                if morph.end_of_sentence():
-                    sentences.append(sentence)
-                    sentence = []
 
     for morph in sentences[2]:
-        print(morph)
+        # vars：現在のローカルシンボルテーブルを表す辞書を更新して示す
+        print(vars(morph))
 
 
 if __name__ == '__main__':
