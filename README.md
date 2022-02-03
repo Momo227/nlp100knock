@@ -27,3 +27,15 @@
 7章前半：https://colab.research.google.com/drive/1OyEGThPdur3jgc1_dBFopZpdC4yUM4Lj?usp=sharing
 
 7章後半：https://colab.research.google.com/drive/1FnvpqecBhoBICN6BkGwhENLqbbrcRQMF?usp=sharing
+
+8章前半：https://colab.research.google.com/drive/1cqjKvEdy72CAwEi_cEDPMdhJ86OVhgzQ?usp=sharing
+
+8章後半：https://colab.research.google.com/drive/1LgdmggaaLLpg6XbEth2fGLm53ua7axuD?usp=sharing
+
+9章前半：https://colab.research.google.com/drive/1SCFd9p48zgFZ1KnhKuPgsQuIN1NaAcPk?usp=sharing
+
+9章後半：https://colab.research.google.com/drive/1l-TVfLzNgcXCmv3YcZpqUZGSoq3zqd1o?usp=sharing
+
+10章前半：https://colab.research.google.com/drive/15uusa5At9-PAIRvwquAFdG2XMDOBKNjV?usp=sharing
+
+10章後半：https://colab.research.google.com/drive/1Bjlm7lCGgD-D5BiNykI5b7oVSB6B43ct?usp=sharing
