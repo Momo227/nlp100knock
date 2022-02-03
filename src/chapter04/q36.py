@@ -26,10 +26,9 @@ def make_dict(data):
         line["pos1"] = elements[5]
         return line.items()
 
-
-def main():
+def hindo(path):
     datas = []
-    with open("../../data/neko.txt.mecab") as input_file:
+    with open(path) as input_file:
         for row in input_file:
             line = make_dict(row)
             if line != "pas":
@@ -44,14 +43,16 @@ def main():
             if k == 'pos' and v != "記号":
                 ans[word] += 1
 
-    ans = sorted(ans.items(), key=lambda x:x[1], reverse=True)
 
-    keys = [mini[0] for mini in ans[0:10]]
-    values = [mini[1] for mini in ans[0:10]]
+    return sorted(ans.items(), key=lambda x:x[1], reverse=True)
+
+def main():
+    datas = hindo("../../data/neko.txt.mecab")
+    keys = [mini[0] for mini in datas[0:10]]
+    values = [mini[1] for mini in datas[0:10]]
     plt.figure(figsize=(8, 4))
     plt.bar(keys, values)
     plt.show()
-
 
 if __name__ == '__main__':
     main()
