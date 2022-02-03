@@ -1,31 +1,47 @@
 import pandas as pd
-import numpy as np
+from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
-from collections import Mapping, defaultdict
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def main():
     train = pd.read_csv("../../data/NewsAggregatorDataset/train.feature.txt", sep="\t")
     train_test = pd.read_csv("../../data/NewsAggregatorDataset/train.txt", sep="\t")
+    valid = pd.read_csv("../../data/NewsAggregatorDataset/valid.feature.txt", sep="\t")
+    valid_test = pd.read_csv("../../data/NewsAggregatorDataset/valid.txt", sep="\t")
     test = pd.read_csv("../../data/NewsAggregatorDataset/test.feature.txt", sep="\t")
     test_test = pd.read_csv("../../data/NewsAggregatorDataset/test.txt", sep="\t")
 
     train_test = train_test['category'].map({'e': 0, 'b': 1, 'm': 2, 't': 3})
+    valid_test = valid_test['category'].map({'e': 0, 'b': 1, 'm': 2, 't': 3})
     test_test = test_test['category'].map({'e': 0, 'b': 1, 'm': 2, 't': 3})
 
-    clf = LogisticRegression(random_state=2, max_iter=10000)
-    clf.fit(train, train_test)
+    # C ：正則化パラメータ
 
-    for c in clf.coef_:
-        # 全ての単語と特徴量のペアを作成
-        d = dict(zip(train, c))
-    # valueの値でソート
-    top = sorted(d.items(), key=lambda x: abs(x[1]), reverse=True)[:10]
-    bottom = sorted(d.items(), key=lambda x: abs(x[1]), reverse=False)[:10]
+    C = [0.01, 0.1, 1]
+    score = []
+    for c in C:
+        print(c)
+        clf = LogisticRegression(random_state=2, max_iter=10000, C=c)
+        clf.fit(train, train_test)
 
-    print(top)
-    print(bottom)
+        print(accuracy_score(train_test, clf.predict(train)))
+        print(accuracy_score(valid_test, clf.predict(valid)))
+        print(accuracy_score(test_test, clf.predict(test)))
+
+        score.append([c, accuracy_score(train_test, clf.predict(train)), accuracy_score(valid_test, clf.predict(valid)), accuracy_score(test_test, clf.predict(test))])
+
+    result = np.array(score).T
+    plt.plot(result[0], result[1], label='train')
+    plt.plot(result[0], result[2], label='valid')
+    plt.plot(result[0], result[3], label='test')
+    plt.ylim(0, 1.1)
+    plt.ylabel('Accuracy')
+    plt.xscale('log')
+    plt.xlabel('C')
+    plt.legend()
+    plt.show()
 
 
 if __name__ == '__main__':
