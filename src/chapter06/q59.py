@@ -14,12 +14,12 @@ def main():
     train_test = train_test['category'].map({'e': 0, 'b': 1, 'm': 2, 't': 3})
     test_test = test_test['category'].map({'e': 0, 'b': 1, 'm': 2, 't': 3})
 
-    # LogisticRegression
-    C = [0.01, 0.1, 1]
-
     best_model = ""
     best_param = ""
     best_score = 0
+
+    # LogisticRegression
+    C = [0.01, 0.1, 1]
     print("LogisticRegression")
     for c in C:
         print(c)
