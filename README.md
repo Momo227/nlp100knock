@@ -16,6 +16,14 @@
 
 4章後半：https://colab.research.google.com/drive/18-TinxJAToD88lTwLjITjoD486HryMIp?usp=sharing
 
+5章前半：https://colab.research.google.com/drive/1hgNbdpgYZ8poDEWdN2Jbh8ZwXF4RX-NH?usp=sharing
+
+5章後半：https://colab.research.google.com/drive/1-TZZyIlADsCuV9fX6a8S-lRHbzNg714w?usp=sharing
+
+6章前半：https://colab.research.google.com/drive/12QQBbjJIPYmoaCq0UFoBsPreQi3DaMzO?usp=sharing
+
+6章後半：https://colab.research.google.com/drive/1KleAFHUAo7x9sUHFKTf2bUqzvT9Im5kQ?usp=sharing
+
 7章前半：https://colab.research.google.com/drive/1OyEGThPdur3jgc1_dBFopZpdC4yUM4Lj?usp=sharing
 
 7章後半：https://colab.research.google.com/drive/1FnvpqecBhoBICN6BkGwhENLqbbrcRQMF?usp=sharing
