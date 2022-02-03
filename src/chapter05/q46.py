@@ -1,11 +1,3 @@
-
-# pythonでDOTを使用する
-import pydot
-# Jupyter Notebookで画像を表示する
-from IPython.display import Image,display_png
-# グラフ理論でいうところのグラフを描く
-from graphviz import Digraph
-
 class Morph:
     def __init__(self, morph):
         (surface, attr) = morph.split("\t")
@@ -57,7 +49,6 @@ def main():
                 morphs = []
                 chunks = []
                 dst = None
-
 
     # 追加
     with open('../../data/ai.ja/ans46.txt', 'w') as f:

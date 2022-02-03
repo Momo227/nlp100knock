@@ -1,11 +1,3 @@
-
-# pythonでDOTを使用する
-import pydot
-# Jupyter Notebookで画像を表示する
-from IPython.display import Image,display_png
-# グラフ理論でいうところのグラフを描く
-from graphviz import Digraph
-
 class Morph:
     def __init__(self, morph):
         (surface, attr) = morph.split("\t")
@@ -58,7 +50,6 @@ def main():
                 chunks = []
                 dst = None
 
-
     # 追加
     with open('../../data/ai.ja/ans47.txt', 'w') as f:
         for sentence in sentences:
@@ -68,22 +59,29 @@ def main():
                         # インデックスも取得
                         for i, src in enumerate(chunk.srcs):
                             # サ変接続名詞+を（助詞）の2つで形態素解析されているのものを抽出
-                            if len(sentence.chunks[src].morphs) == 2 and sentence.chunks[src].morphs[0].pos1 == 'サ変接続' and sentence.chunks[src].morphs[1].surface == 'を':
-                                predicate = ''.join([sentence.chunks[src].morphs[0].surface, sentence.chunks[src].morphs[1].surface, morph.base])
+                            if len(sentence.chunks[src].morphs) == 2 and sentence.chunks[src].morphs[
+                                0].pos1 == 'サ変接続' and sentence.chunks[src].morphs[1].surface == 'を':
+                                predicate = ''.join(
+                                    [sentence.chunks[src].morphs[0].surface, sentence.chunks[src].morphs[1].surface,
+                                     morph.base])
                                 cases = []
                                 sahen = []
                                 # 今のインデックス以外の係り元chunkから助詞を探す
                                 for kakarisaki_id in chunk.srcs[:i] + chunk.srcs[i + 1:]:
-                                    case = [morph.surface for morph in sentence.chunks[kakarisaki_id].morphs if morph.pos == '助詞']
+                                    case = [morph.surface for morph in sentence.chunks[kakarisaki_id].morphs if
+                                            morph.pos == '助詞']
                                     if len(case) > 0:  # 助詞を含むchunkの場合は助詞と項を取得
                                         # 助詞はあるだけ書く
                                         cases = cases + case
-                                        sahen.append(''.join(morph.surface for morph in sentence.chunks[kakarisaki_id].morphs if morph.pos != '記号'))
+                                        sahen.append(''.join(
+                                            morph.surface for morph in sentence.chunks[kakarisaki_id].morphs if
+                                            morph.pos != '記号'))
                                 if len(cases) > 0:  # 助詞が1つ以上見つかった場合は重複除去後辞書順にソートし、項と合わせて出力
                                     cases = sorted(list(set(cases)))
                                     line = '{}\t{}\t{}'.format(predicate, ' '.join(cases), ' '.join(sahen))
                                     print(line, file=f)
                                 break
+
 
 if __name__ == '__main__':
     main()
