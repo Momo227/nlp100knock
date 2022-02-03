@@ -67,19 +67,21 @@ def main():
                     # chunkの左から順番に動詞を探す
                     if morph.pos == '動詞':
                         cases = []
-                        modi_chunks = []
+                        sahen = []
                         # 動詞の係り元chunkから助詞を探す
+                        # 係り元文節インデックス番号のリストから
                         for src in chunk.srcs:
+                            # 文字
                             case = [morph.surface for morph in sentence.chunks[src].morphs if morph.pos == '助詞']
                             # 助詞を含むchunkの場合は助詞と項を取得
                             if len(case) > 0:
                                 cases = cases + case
-                                modi_chunks.append(''.join(
+                                sahen.append(''.join(
                                     morph.surface for morph in sentence.chunks[src].morphs if morph.pos != '記号'))
                         # 助詞あり：重複除去後辞書順にソートし、項と合わせて出力
                         if len(cases) > 0:
                             cases = sorted(list(set(cases)))
-                            line = '{}\t{}\t{}'.format(morph.base, ' '.join(cases), ' '.join(modi_chunks))
+                            line = '{}\t{}\t{}'.format(morph.base, ' '.join(cases), ' '.join(sahen))
                             print(line, file=f)
                         break
 
