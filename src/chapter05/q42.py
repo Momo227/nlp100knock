@@ -16,7 +16,7 @@ class Chunk():
         self.srcs = []
 
 
-# かかり先から逆向きに自分を設定している
+# かかり先から逆向きに設定し、かかり関係をつける
 class Sentence():
     def __init__(self, chunks):
         self.chunks = chunks

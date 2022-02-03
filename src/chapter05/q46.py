@@ -1,3 +1,4 @@
+
 # pythonでDOTを使用する
 import pydot
 # Jupyter Notebookで画像を表示する
@@ -57,25 +58,31 @@ def main():
                 chunks = []
                 dst = None
 
-    # 追加
-    sentence = sentences[2]
-    edges = []
-    for id, chunk in enumerate(sentence.chunks):
-        if int(chunk.dst) != -1:
-            kakarimoto = ''.join(
-                [morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs] + ['(' + str(id) + ')'])
-            kakarisaki = ''.join(
-                [morph.surface if morph.pos != '記号' else '' for morph in sentence.chunks[int(chunk.dst)].morphs] + [
-                    '(' + str(chunk.dst) + ')'])
-            edges.append([kakarimoto, kakarisaki])
 
-    # ノードとエッジを追加
-    n = pydot.Node('node')
-    # directed=True: 矢印あり
-    g = pydot.graph_from_edges(edges, directed=True)
-    g.add_node(n)
-    g.write_png('./ans44.png')
-    display_png(Image('./ans44.png'))
+    # 追加
+    with open('../../data/ai.ja/ans46.txt', 'w') as f:
+        for sentence in sentences:
+            for chunk in sentence.chunks:
+                for morph in chunk.morphs:
+                    # chunkの左から順番に動詞を探す
+                    if morph.pos == '動詞':
+                        cases = []
+                        modi_chunks = []
+                        # 動詞の係り元chunkから助詞を探す
+                        for src in chunk.srcs:
+                            case = [morph.surface for morph in sentence.chunks[src].morphs if morph.pos == '助詞']
+                            # 助詞を含むchunkの場合は助詞と項を取得
+                            if len(case) > 0:
+                                cases = cases + case
+                                modi_chunks.append(''.join(
+                                    morph.surface for morph in sentence.chunks[src].morphs if morph.pos != '記号'))
+                        # 助詞あり：重複除去後辞書順にソートし、項と合わせて出力
+                        if len(cases) > 0:
+                            cases = sorted(list(set(cases)))
+                            line = '{}\t{}\t{}'.format(morph.base, ' '.join(cases), ' '.join(modi_chunks))
+                            print(line, file=f)
+                        break
+
 
 if __name__ == '__main__':
     main()
