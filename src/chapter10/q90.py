@@ -38,8 +38,8 @@ def main():
         train_Y = train_y.read()
 
     print("make list of test")
-    src_text = [sentence for sentence in train_X.split("\n")]
-    train_Y = [sentence for sentence in train_Y.split("\n")]
+    src_text = [sentence for sentence in train_X.split("\n")][:-1]
+    train_Y = [sentence for sentence in train_Y.split("\n")][:-1]
 
 
     print("translate")
