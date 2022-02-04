@@ -51,9 +51,9 @@ def main():
 
     print(train_Y)
 
-    bleu(tgt_text, train_Y)
+    bleu_score = bleu(tgt_text, train_Y)
 
-    print(bleu)
+    print(bleu_score)
 
 if __name__ == '__main__':
     main()
