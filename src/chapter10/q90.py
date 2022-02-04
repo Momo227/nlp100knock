@@ -8,7 +8,7 @@ def main():
             "../../data/kyoto-dev.en") as valid_x, open(
             "../../data/kyoto-dev.ja") as valid_y, open(
             "../../data/kyoto-test.en") as test_x, open(
-            "../../data/kyoto-test.jna") as test_y:
+            "../../data/kyoto-test.ja") as test_y:
 
 
         train_X = train_x.read()
