@@ -1,4 +1,4 @@
-from transformers import MarianMTModel
+from transformers import MarianMTModel, MarianTokenizer
 from transformers.models.marian.tokenization_marian import MarianTokenizer
 def main():
     print("load_data")
@@ -26,6 +26,7 @@ def main():
     model_name = 'Helsinki-NLP/opus-mt-en-jap'
     tokenizer = MarianTokenizer.from_pretrained(model_name)
     print(tokenizer.supported_language_codes)
+
     model = MarianMTModel.from_pretrained(model_name)
     translated = model.generate(**tokenizer(src_text, return_tensors="pt", padding=True))
     tgt_text = [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
