@@ -1,5 +1,18 @@
 from transformers import MarianMTModel
 from transformers.models.marian.tokenization_marian import MarianTokenizer
+from sacrebleu import corpus_bleu
+
+def bleu(predictions, references):
+  references = [references]
+  bleu_score = corpus_bleu(predictions, references,
+                                     smooth_method="exp",
+                                     smooth_value=0.0,
+                                     force=False,
+                                     lowercase=False,
+                                     tokenize="ja-mecab",
+                                     use_effective_order=False)
+  return bleu_score.score
+
 def main():
     print("load_data")
     # with open(
@@ -26,6 +39,7 @@ def main():
 
     print("make list of test")
     src_text = [sentence for sentence in train_X.split("\n")]
+    train_Y = [sentence for sentence in train_Y.split("\n")]
 
 
     print("translate")
@@ -34,7 +48,10 @@ def main():
     model = MarianMTModel.from_pretrained(model_name)
     translated = model.generate(**tokenizer.prepare_seq2seq_batch(src_text, return_tensors="pt"))
     tgt_text = [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
-    print(tgt_text)
+
+    bleu(tgt_text, train_Y)
+
+    print(bleu())
 
 if __name__ == '__main__':
     main()
