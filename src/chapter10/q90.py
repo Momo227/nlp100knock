@@ -49,6 +49,8 @@ def main():
     translated = model.generate(**tokenizer.prepare_seq2seq_batch(src_text, return_tensors="pt"))
     tgt_text = [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
 
+    print(train_Y)
+
     bleu(tgt_text, train_Y)
 
     print(bleu())
