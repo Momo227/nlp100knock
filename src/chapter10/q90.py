@@ -8,7 +8,7 @@ def main():
             "../../data/kyoto-dev.en") as valid_x, open(
             "../../data/kyoto-dev.ja") as valid_y, open(
             "../../data/kyoto-test.en") as test_x, open(
-            "../../data/kyoto-test.ja") as test_y:
+            "../../data/kyoto-test.jna") as test_y:
 
 
         train_X = train_x.read()
@@ -25,8 +25,9 @@ def main():
     print("translate")
     model_name = 'Helsinki-NLP/opus-mt-en-jap'
     tokenizer = MarianTokenizer.from_pretrained(model_name)
+    print(tokenizer.supported_language_codes)
     model = MarianMTModel.from_pretrained(model_name)
-    translated = model.generate(**tokenizer.prepare_seq2seq_batch(src_text, return_tensors="pt"))
+    translated = model.generate(**tokenizer(src_text, return_tensors="pt", padding=True))
     tgt_text = [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
     print(len(tgt_text))
 
