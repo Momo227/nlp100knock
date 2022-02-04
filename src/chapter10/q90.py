@@ -1,6 +1,7 @@
 from transformers import MarianMTModel
 from transformers.models.marian.tokenization_marian import MarianTokenizer
 def main():
+    print("load_data")
     with open(
             "../../data/kyoto-train.en") as train_x, open(
             "../../data/kyoto-train.ja") as train_y, open(
@@ -17,8 +18,11 @@ def main():
         test_X = test_x.read()
         test_Y = test_y.read()
 
+    print("make list of test")
     src_text = [sentence for sentence in test_X.split("\n")]
 
+
+    print("translate")
     model_name = 'Helsinki-NLP/opus-mt-en-jap'
     tokenizer = MarianTokenizer.from_pretrained(model_name)
     model = MarianMTModel.from_pretrained(model_name)
