@@ -3,12 +3,12 @@ from transformers.models.marian.tokenization_marian import MarianTokenizer
 def main():
     print("load_data")
     with open(
-            "../data/kyoto-train.en") as train_x, open(
-            "../data/kyoto-train.ja") as train_y, open(
-            "../data/kyoto-dev.en") as valid_x, open(
-            "../data/kyoto-dev.ja.txt") as valid_y, open(
-            "../data/kyoto-test.en") as test_x, open(
-            "../data/kyoto-test.ja.txt") as test_y:
+            "../../data/kyoto-train.en") as train_x, open(
+            "../../data/kyoto-train.ja") as train_y, open(
+            "../../data/kyoto-dev.en") as valid_x, open(
+            "../../data/kyoto-dev.ja.txt") as valid_y, open(
+            "../../data/kyoto-test.en") as test_x, open(
+            "../../data/kyoto-test.ja.txt") as test_y:
 
 
         train_X = train_x.read()
