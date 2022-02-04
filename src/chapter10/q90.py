@@ -34,7 +34,7 @@ def main():
     model = MarianMTModel.from_pretrained(model_name)
     translated = model.generate(**tokenizer.prepare_seq2seq_batch(src_text, return_tensors="pt"))
     tgt_text = [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
-    print(len(tgt_text))
+    print(tgt_text)
 
 if __name__ == '__main__':
     main()
