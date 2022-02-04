@@ -53,7 +53,7 @@ def main():
 
     bleu(tgt_text, train_Y)
 
-    print(bleu())
+    print(bleu)
 
 if __name__ == '__main__':
     main()
