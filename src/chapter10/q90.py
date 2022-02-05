@@ -43,6 +43,7 @@ def main():
         print(datas[i])
         name = str(datas[i]) + "_X"
         for j in range(len(name)):
+            print(name[j])
             sentence = name[j]
             print(sentence)
             result = word_tokenize(sentence)
