@@ -37,7 +37,7 @@ def main():
     valid_tokenize_X = []
     test_tokenize_X = []
     for data in datas:
-        for i in len(str(data) + "_X"):
+        for i in range(len(str(data) + "_X")):
             sentence = (str(data) + "_X")[i]
             sentence = sentence.split("\n")
             print(sentence)
