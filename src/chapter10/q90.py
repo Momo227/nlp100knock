@@ -1,17 +1,18 @@
 import MeCab
 import nltk
 
+nltk.download('punkt')
+
 
 def main():
     print("load_data")
     with open(
             "../../data/kyoto-train.en") as train_x, open(
-            "../../data/kyoto-train.ja") as train_y, open(
-            "../../data/kyoto-dev.en") as valid_x, open(
-            "../../data/kyoto-dev.ja") as valid_y, open(
-            "../../data/kyoto-test.en") as test_x, open(
-            "../../data/kyoto-test.ja") as test_y:
-
+        "../../data/kyoto-train.ja") as train_y, open(
+        "../../data/kyoto-dev.en") as valid_x, open(
+        "../../data/kyoto-dev.ja") as valid_y, open(
+        "../../data/kyoto-test.en") as test_x, open(
+        "../../data/kyoto-test.ja") as test_y:
 
         train_X = train_x.read()
         train_Y = train_y.read()
@@ -19,8 +20,6 @@ def main():
         valid_Y = valid_y.read()
         test_X = test_x.read()
         test_Y = test_y.read()
-
-
 
     print("make list of test")
     train_X = [sentence for sentence in train_X.split("\n")][:-1]
@@ -42,20 +41,20 @@ def main():
             result = nltk.word_tokenize(sentence)
             str(data) + "_tokenize_X".append(result)
 
-
     # 日本語の形態素解析
     tagger = MeCab.Tagger()
     train_tokenize_Y = []
     valid_tokenize_Y = []
     test_tokenize_Y = []
     for data in datas:
-        for sentence in str(data)+"_Y":
+        for sentence in str(data) + "_Y":
             sentence = sentence.split()
             result = tagger.parse(sentence)
-            str(data)+"_tokenize_Y".append(result)
+            str(data) + "_tokenize_Y".append(result)
 
     print(train_tokenize_X[10])
     print(test_tokenize_Y[10])
+
 
 if __name__ == '__main__':
     main()
