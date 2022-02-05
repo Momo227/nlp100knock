@@ -1,6 +1,5 @@
-from transformers import MarianMTModel
-from transformers.models.marian.tokenization_marian import MarianTokenizer
-from sacrebleu import corpus_bleu
+import MeCab
+import nltk
 
 
 def main():
@@ -31,12 +30,32 @@ def main():
     test_X = [sentence for sentence in test_X.split("\n")][:-1]
     test_Y = [sentence for sentence in test_Y.split("\n")][:-1]
 
-    datas = [train_X, train_Y, valid_X, valid_Y, test_X, test_Y]
+    datas = ["train", "valid", "test"]
 
+    # 日本語の形態素解析
+    train_tokenize_X = []
+    valid_tokenize_X = []
+    test_tokenize_X = []
     for data in datas:
-        for sentence in data:
-            print(sentence.split())
+        for sentence in str(data) + "_X":
+            sentence = sentence.split()
+            result = nltk.word_tokenize(sentence)
+            str(data) + "_tokenize_X".append(result)
 
+
+    # 日本語の形態素解析
+    tagger = MeCab.Tagger()
+    train_tokenize_Y = []
+    valid_tokenize_Y = []
+    test_tokenize_Y = []
+    for data in datas:
+        for sentence in str(data)+"_Y":
+            sentence = sentence.split()
+            result = tagger.parse(sentence)
+            str(data)+"_tokenize_Y".append(result)
+
+    print(train_tokenize_X[10])
+    print(test_tokenize_Y[10])
 
 if __name__ == '__main__':
     main()
