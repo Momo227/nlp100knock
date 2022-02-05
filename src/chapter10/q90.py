@@ -52,8 +52,7 @@ def main():
     test_tokenize_Y = []
     for data in japanese:
         for sentence in data:
-            sentence = sentence.split()
-            print(sentence)
+            sentence = str(sentence.split())
             result = tagger.parse(sentence)
             str(data) + "_tokenize_Y".append(result)
 
