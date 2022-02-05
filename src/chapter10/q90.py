@@ -38,6 +38,9 @@ def main():
     valid_tokenize_X = []
     test_tokenize_X = []
     for i in range(len(datas)):
+        print(datas[i])
+        name = str(datas[i]) + "_X"
+        print(name)
         for j in range(len(str(datas[i]) + "_X")):
             sentence = (str(datas[i]) + "_X")[j]
             print(sentence)
@@ -53,7 +56,7 @@ def main():
         for sentence in str(data) + "_Y":
             sentence = sentence.split()
             result = tagger.parse(sentence)
-            (str(data) + "_tokenize_Y").append(result)
+            str(data) + "_tokenize_Y".append(result)
 
     print(train_tokenize_X[10])
     print(test_tokenize_Y[10])
