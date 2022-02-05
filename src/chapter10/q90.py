@@ -32,6 +32,8 @@ def main():
 
     datas = ["train", "valid", "test"]
 
+    print(train_X[0])
+
 
     # 英語の形態素解析
     train_tokenize_X = []
