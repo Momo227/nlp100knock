@@ -13,6 +13,14 @@ def tokenize_english(sentences):
     return result
 
 
+def tokenize_japanese(sentences, tagger):
+    result = []
+    for i in range(len(sentences)):
+        result.append(tagger.parse(sentences[i]))
+
+    return result
+
+
 def main():
     print("load_data")
     with open(
@@ -22,7 +30,6 @@ def main():
         "../../data/kyoto-dev.ja") as valid_y, open(
         "../../data/kyoto-test.en") as test_x, open(
         "../../data/kyoto-test.ja") as test_y:
-
         train_X = train_x.read()
         train_Y = train_y.read()
         valid_X = valid_x.read()
@@ -41,22 +48,17 @@ def main():
     japanese = [train_Y, valid_Y, test_Y]
 
     # 英語の形態素解析
-    # train_tokenize_X = tokenize_english(train_X)
-    # valid_tokenize_X = tokenize_english(valid_X)
-    # test_tokenize_X = tokenize_english(test_X)
+    train_tokenize_X = tokenize_english(train_X)
+    valid_tokenize_X = tokenize_english(valid_X)
+    test_tokenize_X = tokenize_english(test_X)
 
     # 日本語の形態素解析
     tagger = MeCab.Tagger()
-    train_tokenize_Y = []
-    valid_tokenize_Y = []
-    test_tokenize_Y = []
-    for data in japanese:
-        for sentence in data:
-            sentence = str(sentence.split())
-            result = tagger.parse(sentence)
-            str(data) + "_tokenize_Y".append(result)
+    train_tokenize_Y = tokenize_english(train_Y, tagger)
+    valid_tokenize_Y = tokenize_english(valid_Y, tagger)
+    test_tokenize_Y = tokenize_english(test_Y, tagger)
 
-    # print(train_tokenize_X[10])
+    print(train_tokenize_X[10])
     print(test_tokenize_Y[10])
 
 
