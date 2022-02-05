@@ -38,6 +38,7 @@ def main():
     test_tokenize_X = []
     for data in datas:
         for sentence in str(data) + "_X":
+            print(sentence)
             sentence = sentence.split("\n")
             print(sentence)
             result = word_tokenize(sentence)
