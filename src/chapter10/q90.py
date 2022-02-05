@@ -40,7 +40,6 @@ def main():
     for i in range(len(datas)):
         for j in range(len(str(datas[i]) + "_X")):
             sentence = (str(datas[i]) + "_X")[j]
-            sentence = sentence.split("\n")
             print(sentence)
             result = word_tokenize(sentence)
             str(datas[i]) + "_tokenize_X".append(result)
