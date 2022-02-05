@@ -53,7 +53,7 @@ def main():
         for sentence in str(data) + "_Y":
             sentence = sentence.split()
             result = tagger.parse(sentence)
-            str(data) + "_tokenize_Y".append(result)
+            (str(data) + "_tokenize_Y").append(result)
 
     print(train_tokenize_X[10])
     print(test_tokenize_Y[10])
