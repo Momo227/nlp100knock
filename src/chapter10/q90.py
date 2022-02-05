@@ -56,6 +56,8 @@ def main():
     valid_tokenize_Y = tokenize_japanese(valid_Y, tagger)
     test_tokenize_Y = tokenize_japanese(test_Y, tagger)
 
+
+    # 確認
     print(train_tokenize_X[10])
     print(test_tokenize_Y[10])
 
