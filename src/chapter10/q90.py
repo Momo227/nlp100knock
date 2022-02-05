@@ -1,5 +1,6 @@
 import MeCab
 import nltk
+from nltk.tokenize import word_tokenize
 
 nltk.download('punkt')
 
@@ -31,14 +32,14 @@ def main():
 
     datas = ["train", "valid", "test"]
 
-    # 日本語の形態素解析
+    # 英語の形態素解析
     train_tokenize_X = []
     valid_tokenize_X = []
     test_tokenize_X = []
     for data in datas:
         for sentence in str(data) + "_X":
             sentence = sentence.split()
-            result = nltk.word_tokenize(sentence)
+            result = word_tokenize(sentence)
             str(data) + "_tokenize_X".append(result)
 
     # 日本語の形態素解析
