@@ -39,6 +39,7 @@ def main():
     for data in datas:
         for sentence in str(data) + "_X":
             sentence = sentence.split()
+            print(sentence)
             result = word_tokenize(sentence)
             str(data) + "_tokenize_X".append(result)
 
