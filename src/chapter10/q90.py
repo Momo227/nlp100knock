@@ -41,9 +41,9 @@ def main():
     japanese = [train_Y, valid_Y, test_Y]
 
     # 英語の形態素解析
-    train_tokenize_X = tokenize_english(train_X)
-    valid_tokenize_X = tokenize_english(valid_X)
-    test_tokenize_X = tokenize_english(test_X)
+    # train_tokenize_X = tokenize_english(train_X)
+    # valid_tokenize_X = tokenize_english(valid_X)
+    # test_tokenize_X = tokenize_english(test_X)
 
     # 日本語の形態素解析
     tagger = MeCab.Tagger()
@@ -53,10 +53,11 @@ def main():
     for data in japanese:
         for sentence in data:
             sentence = sentence.split()
+            print(sentence)
             result = tagger.parse(sentence)
             str(data) + "_tokenize_Y".append(result)
 
-    print(train_tokenize_X[10])
+    # print(train_tokenize_X[10])
     print(test_tokenize_Y[10])
 
 
