@@ -15,6 +15,7 @@ src = "en"
 tgt = "ja"
 batch_size = 64
 
+
 def tokenize_english(sentences):
     result = []
     for i in range(len(sentences)):
@@ -34,6 +35,8 @@ def tokenize_japanese(sentences, tagger):
 src_field = Field(sequential=True, use_vocab=True, init_token="<s>", eos_token="</s>")
 tgt_field = Field(sequential=True, use_vocab=True, init_token="<s>", eos_token="</s>")
 fields = [("src", src_field), ("tgt", tgt_field)]
+
+
 def load_corpus(fname, src, tgt):
     # ソース言語のデータを単語リストのリストに変換
     fin = open(fname + ".%s" % src, "r")
@@ -140,7 +143,7 @@ def main():
     # 英語の形態素解析
     train_tokenize_X = tokenize_english(train_X)
     valid_tokenize_X = tokenize_english(valid_X)
-    #test_tokenize_X = tokenize_english(test_X)
+    # test_tokenize_X = tokenize_english(test_X)
 
     # 日本語の形態素解析
     # tagger = MeCab.Tagger()
