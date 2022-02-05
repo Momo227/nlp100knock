@@ -5,6 +5,14 @@ from nltk.tokenize import word_tokenize
 nltk.download('punkt')
 
 
+def tokenize_english(sentences):
+    result = []
+    for i in range(len(sentences)):
+        result.append(word_tokenize(sentences[i]))
+
+    return result
+
+
 def main():
     print("load_data")
     with open(
@@ -30,33 +38,20 @@ def main():
     test_X = [sentence for sentence in test_X.split("\n")][:-1]
     test_Y = [sentence for sentence in test_Y.split("\n")][:-1]
 
-    datas = ["train", "valid", "test"]
-
-    print(train_X[0])
-
+    japanese = [train_Y, valid_Y, test_Y]
 
     # 英語の形態素解析
-    train_tokenize_X = []
-    valid_tokenize_X = []
-    test_tokenize_X = []
-    for i in range(len(datas)):
-        name = str(datas[i]) + "_X"
-        print(name)
-        print(len(name))
-        for j in range(len(name)):
-            print(name[j])
-            sentence = name[j]
-            print(sentence)
-            result = word_tokenize(sentence)
-            str(datas[i]) + "_tokenize_X".append(result)
+    train_tokenize_X = tokenize_english(train_X)
+    valid_tokenize_X = tokenize_english(valid_X)
+    test_tokenize_X = tokenize_english(test_X)
 
     # 日本語の形態素解析
     tagger = MeCab.Tagger()
     train_tokenize_Y = []
     valid_tokenize_Y = []
     test_tokenize_Y = []
-    for data in datas:
-        for sentence in str(data) + "_Y":
+    for data in japanese:
+        for sentence in data:
             sentence = sentence.split()
             result = tagger.parse(sentence)
             str(data) + "_tokenize_Y".append(result)
