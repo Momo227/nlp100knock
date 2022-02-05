@@ -40,9 +40,8 @@ def main():
     for i in range(len(datas)):
         print(datas[i])
         name = str(datas[i]) + "_X"
-        print(name)
-        for j in range(len(str(datas[i]) + "_X")):
-            sentence = (str(datas[i]) + "_X")[j]
+        for j in range(len(name)):
+            sentence = name[j]
             print(sentence)
             result = word_tokenize(sentence)
             str(datas[i]) + "_tokenize_X".append(result)
