@@ -32,19 +32,18 @@ def main():
 
     datas = ["train", "valid", "test"]
 
-    print(train_X[0])
 
     # 英語の形態素解析
     train_tokenize_X = []
     valid_tokenize_X = []
     test_tokenize_X = []
-    for data in datas:
-        for i in range(len(str(data) + "_X")):
-            sentence = (str(data) + "_X")[i]
+    for i in range(len(datas)):
+        for j in range(len(str(datas[i]) + "_X")):
+            sentence = (str(datas[i]) + "_X")[j]
             sentence = sentence.split("\n")
             print(sentence)
             result = word_tokenize(sentence)
-            str(data) + "_tokenize_X".append(result)
+            str(datas[i]) + "_tokenize_X".append(result)
 
     # 日本語の形態素解析
     tagger = MeCab.Tagger()
