@@ -92,10 +92,10 @@ def main():
     dataset_train = load_corpus("../../data/kyoto-train", src, tgt)
     dataset_val = load_corpus("../../data/kyoto-dev", src, tgt)
 
-    # print("give ID")
-    # # 語彙を登録（訓練データに含まれる単語にIDを割り振る）
-    # src_field.build_vocab(dataset_train, min_freq=3)
-    # tgt_field.build_vocab(dataset_train, min_freq=3)
+    print("give ID")
+    # 語彙を登録（訓練データに含まれる単語にIDを割り振る）
+    src_field.build_vocab(dataset_train, min_freq=3)
+    tgt_field.build_vocab(dataset_train, min_freq=3)
     #
     # print("make dataloader")
     # # データセットオブジェクトからデータローダーを作成
