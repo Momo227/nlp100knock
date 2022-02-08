@@ -55,7 +55,7 @@ class RNN(pl.LightningModule):
         return torch.optim.Adam(self.parameters(), lr=0.01)
 def main():
     train = pd.read_csv("../../data/NewsAggregatorDataset/train.txt", sep='\t')
-
+    train_label = pd.read_csv("../../data/NewsAggregatorDataset/test_ans.csv", sep='\t')
     # ユニークな → 重複しない
 
     train = train["title"]

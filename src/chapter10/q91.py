@@ -143,20 +143,22 @@ def main():
     # 英語の形態素解析
     train_tokenize_X = tokenize_english(train_X)
     valid_tokenize_X = tokenize_english(valid_X)
-    # test_tokenize_X = tokenize_english(test_X)
+    test_tokenize_X = tokenize_english(test_X)
 
     # 日本語の形態素解析
-    # tagger = MeCab.Tagger()
-    # train_tokenize_Y = tokenize_japanese(train_Y, tagger)
-    # valid_tokenize_Y = tokenize_japanese(valid_Y, tagger)
-    # test_tokenize_Y = tokenize_japanese(test_Y, tagger)
+    tagger = MeCab.Tagger()
+    train_tokenize_Y = tokenize_japanese(train_Y, tagger)
+    valid_tokenize_Y = tokenize_japanese(valid_Y, tagger)
+    test_tokenize_Y = tokenize_japanese(test_Y, tagger)
 
+
+    print("give ID")
     # 語彙を登録（訓練データに含まれる単語にIDを割り振る）
     src_field.build_vocab(train_X, min_freq=3)
     tgt_field.build_vocab(train_Y, min_freq=3)
 
     # データセットオブジェクトからデータローダーを作成
-    dataloader_train = BucketIterator(train_tokenize_X, batch_size=batch_size, shuffle=True, device=device)
+    dataloader_train = BucketIterator(dataset=train_tokenize_X, batch_size=batch_size, shuffle=True, device=device)
     dataloader_val = BucketIterator(valid_tokenize_X, batch_size=batch_size, shuffle=False, device=device)
 
     # ハイパーパラメータ
