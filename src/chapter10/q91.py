@@ -154,9 +154,10 @@ def main():
 
     print("give ID")
     # 語彙を登録（訓練データに含まれる単語にIDを割り振る）
-    src_field.build_vocab(train_X, min_freq=3)
-    tgt_field.build_vocab(train_Y, min_freq=3)
+    src_field.build_vocab(train_tokenize_X, min_freq=3)
+    tgt_field.build_vocab(train_tokenize_Y, min_freq=3)
 
+    print("make dataloader")
     # データセットオブジェクトからデータローダーを作成
     dataloader_train = BucketIterator(dataset=train_tokenize_X, batch_size=batch_size, shuffle=True, device=device)
     dataloader_val = BucketIterator(valid_tokenize_X, batch_size=batch_size, shuffle=False, device=device)
