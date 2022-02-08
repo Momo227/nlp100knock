@@ -142,8 +142,11 @@ def main():
 
     # 英語の形態素解析
     train_tokenize_X = tokenize_english(train_X)
+    print(train_tokenize_X)
+    exit()
     valid_tokenize_X = tokenize_english(valid_X)
     test_tokenize_X = tokenize_english(test_X)
+
 
     # 日本語の形態素解析
     tagger = MeCab.Tagger()
