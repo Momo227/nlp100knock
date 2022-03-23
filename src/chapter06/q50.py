@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 
 
 def main():
-    data = pd.read_csv('../../data/NewsAggregatorDataset/newsCorpora.csv', header=None, names=['id', 'title', 'url', 'publisher', 'category', 'story', 'name', 'time'], sep='\t')
+    data = pd.read_csv('../../data/NewsAggregatorDataset/newsCorpora.csv', header=None, names=['id', 'title', 'url', 'publisher', 'category', 'story', 'name', 'time'], sep='\t', quoting=3)
 
     mini_data = data.loc[data['publisher'].isin(['Reuters', 'Huffington Post', 'Businessweek', 'Contactmusic.com', 'Daily Mail']), ['title', 'category']]
 
